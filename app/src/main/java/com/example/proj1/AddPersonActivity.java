@@ -23,11 +23,14 @@ public class AddPersonActivity extends AppCompatActivity {
     }
 
     private String validate(String name, String surname, String date, String phoneNumber){
-        if(name.isEmpty()){
-            return "Invalid name";
-        }
-        if(surname.isEmpty()){
-            return "Invalid surname";
+//        if(name.isEmpty()){
+//            return "Invalid name";
+//        }
+//        if(surname.isEmpty()){
+//            return "Invalid surname";
+//        }
+        if(name.isEmpty() && surname.isEmpty()){
+            return "Person must have a name";
         }
 
         SimpleDateFormat dateFormat=new SimpleDateFormat("dd-MM-yyyy");

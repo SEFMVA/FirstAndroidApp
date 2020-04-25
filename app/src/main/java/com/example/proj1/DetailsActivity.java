@@ -32,8 +32,8 @@ public class DetailsActivity extends AppCompatActivity {
                 Drawable avatar= getDrawable(getResources().getIdentifier(person.picPath, "drawable", getPackageName()));
                 avatarDetail.setImageDrawable(avatar);
                 nameDetail.setText(String.format("%s %s", person.name, person.surname));
-                numberDetail.setText(person.phoneNumber);
-                dateDetail.setText(person.date);
+                numberDetail.setText(String.format("Phone number: %s", person.phoneNumber));
+                dateDetail.setText(String.format("Birthday: %s", person.date));
 
             }
         }

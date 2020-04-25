@@ -41,7 +41,7 @@ public class MyPersonRecyclerViewAdapter extends RecyclerView.Adapter<MyPersonRe
         PersonsListContent.Person person=mValues.get(position);
         holder.mItem=person;
 
-        holder.mContentView.setText(person.name);
+        holder.mContentView.setText(String.format("%s %s", person.name, person.surname));
 
         final String picPath=person.picPath;
         Context context=holder.mView.getContext();
