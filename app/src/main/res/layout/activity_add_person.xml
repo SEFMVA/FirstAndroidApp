@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddPersonActivity">
+
+    <EditText
+        android:id="@+id/nameInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:hint="Name"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/surnameInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Surname"
+        android:textSize="12sp"
+        app:layout_constraintTop_toBottomOf="@+id/nameInput"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <EditText
+        android:id="@+id/birthdayInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Birthday"
+        android:textSize="12sp"
+        app:layout_constraintTop_toBottomOf="@+id/surnameInput" />
+
+    <EditText
+        android:id="@+id/phoneNumberInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Phone number"
+        android:textSize="12sp"
+        app:layout_constraintTop_toBottomOf="@+id/birthdayInput"
+        tools:layout_editor_absoluteX="16dp" />
+
+    <Button
+        android:id="@+id/addPersonButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Add"
+        android:onClick="addPerson"
+        app:layout_constraintEnd_toEndOf="@+id/phoneNumberInput"
+        app:layout_constraintStart_toStartOf="@+id/phoneNumberInput"
+        app:layout_constraintTop_toBottomOf="@+id/phoneNumberInput" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
