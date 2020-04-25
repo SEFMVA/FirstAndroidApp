@@ -5,9 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.proj1.persons.PersonsListContent;
@@ -24,7 +28,6 @@ DeleteDialog.OnDeleteDialogInteractionListener{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
     }
 
     public void addPerson(View view) {
@@ -53,10 +56,37 @@ DeleteDialog.OnDeleteDialogInteractionListener{
 
     @Override
     public void onListFragmentClickInteraction(PersonsListContent.Person person, int position) {
-        Intent intent =new Intent(this,DetailsActivity.class);
-        intent.putExtra(detailsActivityMessage,person);
-        startActivity(intent);
+        if(getResources().getConfiguration().orientation== Configuration.ORIENTATION_PORTRAIT){
+            Intent intent =new Intent(this,DetailsActivity.class);
+            intent.putExtra(detailsActivityMessage,person);
+            startActivity(intent);
+        }else{
+            DetailsFragment detailsFragment=(DetailsFragment)getSupportFragmentManager().findFragmentById(R.id.mainActivityDetailsFragment);
+            if(detailsFragment!=null){
+                showPerson(person);
 
+            }
+
+        }
+
+
+    }
+
+    public void showPerson(PersonsListContent.Person person){
+        if(person!=null){
+            TextView nameDetail=findViewById(R.id.nameDetail);
+            ImageView avatarDetail=findViewById(R.id.avatarDetail);
+            TextView numberDetail=findViewById(R.id.numberDetail);
+            TextView dateDetail=findViewById(R.id.dateDetail);
+
+
+            Drawable avatar= getDrawable(getResources().getIdentifier(person.picPath, "drawable", getPackageName()));
+            avatarDetail.setImageDrawable(avatar);
+            nameDetail.setText(String.format("%s %s", person.name, person.surname));
+            numberDetail.setText(person.phoneNumber);
+            dateDetail.setText(person.date);
+
+        }
     }
 
     @Override
@@ -67,11 +97,8 @@ DeleteDialog.OnDeleteDialogInteractionListener{
 
     @Override
     public void onDeleteButtonClickInteraction(PersonsListContent.Person mItem, int position) {
-        //todo orientacja pozioma
         currentPersonPosition=position;
         DeleteDialog.newInstance().show(getSupportFragmentManager(),getString(R.string.delete_dialog_tag));
-
-
     }
 
     @Override
@@ -87,7 +114,6 @@ DeleteDialog.OnDeleteDialogInteractionListener{
     @Override
     public void onDeleteDialogPositiveClick(DialogFragment dialog) {
         if(currentPersonPosition!=-1 && currentPersonPosition<PersonsListContent.ITEMS.size()){
-            Toast.makeText(this,Integer.toString(currentPersonPosition),Toast.LENGTH_SHORT).show();
             PersonsListContent.removeItem(currentPersonPosition);
             ((PersonFragment)getSupportFragmentManager().findFragmentById(R.id.PersonFragment)).notifyDataChange();
         }
@@ -98,5 +124,17 @@ DeleteDialog.OnDeleteDialogInteractionListener{
         currentPersonPosition=-1;
         Toast.makeText(this,"Delete was cancelled.",Toast.LENGTH_SHORT).show();
 
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+
+        // Checks the orientation of the screen
+        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            Toast.makeText(this, "landscape", Toast.LENGTH_SHORT).show();
+        } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT){
+            Toast.makeText(this, "portrait", Toast.LENGTH_SHORT).show();
+        }
     }
 }
